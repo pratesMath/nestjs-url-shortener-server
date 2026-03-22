@@ -12,15 +12,25 @@
 		"enabled": true,
 		"indentStyle": "tab"
 	},
+	"javascript": {
+		"formatter": {
+			"arrowParentheses": "asNeeded",
+			"jsxQuoteStyle": "single",
+			"quoteStyle": "single",
+			"semicolons": "always",
+			"trailingCommas": "es5"
+		}
+	},
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true
-		}
-	},
-	"javascript": {
-		"formatter": {
-			"quoteStyle": "double"
+			"recommended": true,
+			"suspicious": { "noExplicitAny": "off" },
+			"complexity": {
+				"noStaticOnlyClass": "off",
+				"noForEach": "off",
+				"noThisInStatic": "off"
+			}
 		}
 	},
 	"assist": {
