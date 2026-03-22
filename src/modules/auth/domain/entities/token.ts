@@ -4,7 +4,9 @@ import { Optional } from '@shared/types/optional';
 import { ExpiresIn } from '../value-objects/expires-in';
 import { UniqueCodeToken } from '../value-objects/unique-code-token';
 
-export type TokenType = 'PASSWORD_RECOVER';
+export enum TokenType {
+	PASSWORD_RECOVER = 'PASSWORD_RECOVER',
+}
 
 export interface TokenProps {
 	userId: UniqueEntityID;

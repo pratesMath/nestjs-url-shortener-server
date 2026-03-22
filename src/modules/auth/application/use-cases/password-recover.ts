@@ -1,4 +1,4 @@
-import { Token } from '@auth-module/domain/entities/token';
+import { Token, TokenType } from '@auth-module/domain/entities/token';
 import { TokensRepository } from '@auth-module/domain/repositories/tokens-repository';
 import { UsersRepository } from '@auth-module/domain/repositories/users-repository';
 import { Either, left, right } from '@shared/either';
@@ -21,7 +21,7 @@ export class PasswordRecoverUseCase {
 
 		const token = Token.create({
 			userId: foundUser.id,
-			tokenType: 'PASSWORD_RECOVER',
+			tokenType: TokenType.PASSWORD_RECOVER,
 		});
 
 		await this.tokensRepository.create(token);

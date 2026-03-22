@@ -16,8 +16,14 @@ pnpx @biomejs/biome init
 # Install (additional) necessary dependencies
 pnpm add uuid date-fns class-transformer class-validator helmet drizzle-orm pg @nestjs/config zod argon2 @nestjs/jwt @nestjs/passport passport-jwt
 # Install dev dependencies
-pnpm add -D @types/helmet drizzle-kit @types/pg
+pnpm add -D @types/helmet drizzle-kit @types/pg tsx
 
 # Install vitest to configure test environment
 pnpm add -D vitest unplugin-swc vite-tsconfig-paths @swc/core
+```
+
+Use openssl to general a secure long string. (It'll be used to password salt on argon2 lib).
+
+```SH
+openssl rand -base64 16 # return 'WakbUr4pwmHi1s0Lv/knOQ=='
 ```

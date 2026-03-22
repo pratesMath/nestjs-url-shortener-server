@@ -1,12 +1,17 @@
 export class UniqueCodeToken {
-	public value: number;
+	private value: number;
 
-	private constructor() {
-		this.value = this.generateUniqueNumericalCode();
+	private constructor(code?: number) {
+		const codeToString = String(code);
+		const codeRule = codeToString[0] === '0' || codeToString.toString().length < 8;
+
+		const value = code && codeRule ? code : this.generateUniqueNumericalCode();
+
+		this.value = value;
 	}
 
-	static create(): UniqueCodeToken {
-		return new UniqueCodeToken();
+	static create(code?: number): UniqueCodeToken {
+		return new UniqueCodeToken(code);
 	}
 
 	private shuffleArray<T>(array: T[]): T[] {
@@ -17,6 +22,7 @@ export class UniqueCodeToken {
 		}
 		return array;
 	}
+
 	private generateUniqueNumericalCode(): number {
 		const digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
