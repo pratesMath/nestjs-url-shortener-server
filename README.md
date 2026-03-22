@@ -12,4 +12,12 @@ nest new nestjs-url-shortener-server # set 'pnpm' as packager manager
 pnpm add -D -E @biomejs/biome
 ## Initialize BiomeJS (will crate a 'biome.json' at project root)
 pnpx @biomejs/biome init
+
+# Install (additional) necessary dependencies
+pnpm add uuid date-fns class-transformer class-validator helmet
+# Install dev dependencies
+pnpm add -D @types/helmet
+
+# Install vitest to configure test environment
+pnpm add -D vitest unplugin-swc vite-tsconfig-paths @swc/core
 ```

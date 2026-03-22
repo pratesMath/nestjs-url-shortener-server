@@ -20,7 +20,9 @@
 		"noImplicitAny": false,
 		"strictBindCallApply": false,
 		"noFallthroughCasesInSwitch": false,
+		"strictPropertyInitialization": false,
 		"paths": {
+			"@test/*": ["./test/*"],
 			"@shared/*": ["./src/shared/*"],
 			"@auth-module/*": ["./src/modules/auth/*"]
 		}

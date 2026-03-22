@@ -21,6 +21,9 @@
 			"quoteStyle": "single",
 			"semicolons": "always",
 			"trailingCommas": "es5"
+		},
+		"parser": {
+			"unsafeParameterDecoratorsEnabled": true
 		}
 	},
 	"linter": {
@@ -32,6 +35,9 @@
 				"noStaticOnlyClass": "off",
 				"noForEach": "off",
 				"noThisInStatic": "off"
+			},
+			"style": {
+				"useImportType": "off"
 			}
 		}
 	},
