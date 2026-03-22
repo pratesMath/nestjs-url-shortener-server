@@ -14,7 +14,7 @@ type GetProfileUseCaseOutput = Either<
 >;
 
 export class GetProfileUseCase {
-	constructor(private usersRepository: UsersRepository) {}
+	constructor(private readonly usersRepository: UsersRepository) {}
 
 	async execute({ currentUserId }: GetProfileUseCaseInput): Promise<GetProfileUseCaseOutput> {
 		const user = await this.usersRepository.findById(currentUserId);

@@ -3,19 +3,16 @@ import { TokensRepository } from '@auth-module/domain/repositories/tokens-reposi
 import { UsersRepository } from '@auth-module/domain/repositories/users-repository';
 import { Either, left, right } from '@shared/either';
 import { ResourceNotFoundError } from '@shared/errors/errors/resource-not-found-error';
+import { PasswordRecoverInputDTO, PasswordRecoverOutputDTO } from '../dtos';
 
-interface PasswordRecoverUseCaseInput {
-	email: string;
-}
-
-type PasswordRecoverUseCaseOutput = Either<ResourceNotFoundError, { token: Token }>;
+type PasswordRecoverUseCaseOutput = Either<ResourceNotFoundError, PasswordRecoverOutputDTO>;
 
 export class PasswordRecoverUseCase {
 	constructor(
-		private tokensRepository: TokensRepository,
-		private usersRepository: UsersRepository
+		private readonly tokensRepository: TokensRepository,
+		private readonly usersRepository: UsersRepository
 	) {}
-	async execute({ email }: PasswordRecoverUseCaseInput): Promise<PasswordRecoverUseCaseOutput> {
+	async execute({ email }: PasswordRecoverInputDTO): Promise<PasswordRecoverUseCaseOutput> {
 		const foundUser = await this.usersRepository.findByEmail(email);
 
 		if (!foundUser) {

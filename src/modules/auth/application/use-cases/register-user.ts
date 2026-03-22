@@ -10,8 +10,8 @@ type RegisterUserUseCaseOutput = Either<UserAlreadyExistsError, RegisterUserOutp
 
 export class RegisterUserUseCase {
 	constructor(
-		private hashGenerator: HashGenerator,
-		private usersRepository: UsersRepository
+		private readonly hashGenerator: HashGenerator,
+		private readonly usersRepository: UsersRepository
 	) {}
 
 	async execute({

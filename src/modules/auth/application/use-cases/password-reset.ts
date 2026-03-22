@@ -4,25 +4,18 @@ import { HashGenerator } from '@auth-module/domain/services/cryptography/hash-ge
 import { Either, left, right } from '@shared/either';
 import { ResourceNotFoundError } from '@shared/errors/errors/resource-not-found-error';
 import { dateFns } from '@shared/libs/date-fns';
+import { PasswordResetInputDTO, PasswordResetOutputDTO } from '../dtos';
 import { ExpiredTokenError } from '../errors/expired-token-error';
 
-interface PasswordResetUseCaseInput {
-	code: number;
-	password: string;
-}
-
-type PasswordResetUseCaseOutput = Either<ResourceNotFoundError, null>;
+type PasswordResetUseCaseOutput = Either<ResourceNotFoundError, PasswordResetOutputDTO>;
 
 export class PasswordResetUseCase {
 	constructor(
-		private tokensRepository: TokensRepository,
-		private usersRepository: UsersRepository,
-		private hashGenerator: HashGenerator
+		private readonly tokensRepository: TokensRepository,
+		private readonly usersRepository: UsersRepository,
+		private readonly hashGenerator: HashGenerator
 	) {}
-	async execute({
-		code,
-		password,
-	}: PasswordResetUseCaseInput): Promise<PasswordResetUseCaseOutput> {
+	async execute({ code, password }: PasswordResetInputDTO): Promise<PasswordResetUseCaseOutput> {
 		const foundToken = await this.tokensRepository.findByCode(code);
 
 		if (!foundToken) {
