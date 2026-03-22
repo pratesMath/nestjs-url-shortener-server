@@ -1,0 +1,30 @@
+name: url-shortener-server
+
+services:
+  # PostgreSQL
+  url-shortener-db:
+    image: postgres:16-alpine
+    container_name: url-shortener-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: url_shortener_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: docker
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d url_shortener_db -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - url_shortener_db_data:/var/lib/postgresql/data
+    networks:
+      - url-shortener-network
+
+networks:
+  url-shortener-network:
+    driver: bridge
+
+volumes:
+  url_shortener_db_data:
