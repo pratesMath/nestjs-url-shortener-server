@@ -24,6 +24,7 @@
 		"paths": {
 			"@test/*": ["./test/*"],
 			"@shared/*": ["./src/shared/*"],
+			"@config/*": ["./src/config/*"],
 			"@auth-module/*": ["./src/modules/auth/*"]
 		}
 	}
