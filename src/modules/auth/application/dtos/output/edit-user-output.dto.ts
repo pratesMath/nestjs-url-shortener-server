@@ -1,3 +1,3 @@
 import { User } from '@auth-module/domain/entities/user';
 
-export type RegisterUserOutputDTO = { user: User };
+export type EditUserOutputDTO = { user: User };
