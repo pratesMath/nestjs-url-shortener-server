@@ -7,7 +7,7 @@ export class JwtEncrypter implements Encrypter {
 	constructor(private jwtService: JwtService) {}
 
 	async encrypt(payload: Record<string, unknown>): Promise<EncryptPromise> {
-		const accessToken = await this.jwtService.signAsync(payload, { expiresIn: '20min' });
+		const accessToken = await this.jwtService.signAsync(payload);
 
 		return {
 			accessToken,

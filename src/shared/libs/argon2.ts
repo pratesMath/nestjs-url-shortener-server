@@ -8,7 +8,7 @@ const memoryCost64MB = 65536; // 64 MB
 
 const hashOptions: Argon2.Options = {
 	type: argon2.argon2id,
-	salt: Buffer.alloc(16, String(process.env.PASSWORD_SALT)),
+	salt: Buffer.alloc(16),
 	secret: Buffer.from(String(process.env.PASSWORD_PEPPER)),
 	memoryCost: memoryCost64MB,
 	timeCost: 3,

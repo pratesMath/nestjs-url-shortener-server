@@ -24,7 +24,7 @@ export class DrizzleTokenMapper {
 			userId: token.userId.toString(),
 			tokenType: token.tokenType,
 			code: token.code.toValue(),
-			expiresIn: token.expiresIn.toString(),
+			expiresIn: new Date(token.expiresIn.toString()).toUTCString(),
 			createdAt: token.createdAt.toUTCString(),
 		};
 	}
