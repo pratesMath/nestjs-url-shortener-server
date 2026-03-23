@@ -14,12 +14,12 @@ pnpm add -D -E @biomejs/biome
 pnpx @biomejs/biome init
 
 # Install (additional) necessary dependencies
-pnpm add uuid date-fns class-transformer class-validator helmet drizzle-orm pg @nestjs/config zod argon2 @nestjs/jwt @nestjs/passport passport-jwt
+pnpm add uuid date-fns class-transformer class-validator helmet drizzle-orm pg @nestjs/config zod argon2 @nestjs/jwt @nestjs/passport passport-jwt ioredis
 # Install dev dependencies
 pnpm add -D @types/helmet drizzle-kit @types/pg tsx
 
 # Install vitest to configure test environment
-pnpm add -D vitest unplugin-swc vite-tsconfig-paths @swc/core
+pnpm add -D vitest unplugin-swc vite-tsconfig-paths @swc/core dotenv
 ```
 
 <h3>Applying RSA Algorithm</h3>
