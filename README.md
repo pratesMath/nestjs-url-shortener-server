@@ -22,8 +22,22 @@ pnpm add -D @types/helmet drizzle-kit @types/pg tsx
 pnpm add -D vitest unplugin-swc vite-tsconfig-paths @swc/core
 ```
 
-Use openssl to general a secure long string. (It'll be used to password salt on argon2 lib).
+<h3>Applying RSA Algorithm</h3>
 
+1. Generate private & public Key files
 ```SH
-openssl rand -base64 16 # return 'WakbUr4pwmHi1s0Lv/knOQ=='
+# Generate private key
+openssl genpkey -algorithm RSA -out private-key.pem -pkeyopt rsa_keygen_bits:2048
+# Generate public key thought private key
+openssl rsa -pubout -in private-key.pem -out public-key.pem
 ```
+
+2. Generate private & public Key in base64 format
+```SH
+# Generate base64 from "private-key.pem"
+base64 private-key.pem > private-key.txt
+# Generate base64 from "public-key.pem"
+base64 public-key.pem > public-key.txt
+```
+
+3. last step: copy code from `private-key.txt` and `public-key.txt` files and paste in their respective `.env` file. And just to finish, delete all this generated files from steps 1 and 2.
