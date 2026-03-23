@@ -1,12 +1,14 @@
 import { Token, TokenType } from '@auth-module/domain/entities/token';
 import { TokensRepository } from '@auth-module/domain/repositories/tokens-repository';
 import { UsersRepository } from '@auth-module/domain/repositories/users-repository';
+import { Injectable } from '@nestjs/common';
 import { Either, left, right } from '@shared/either';
 import { ResourceNotFoundError } from '@shared/errors/errors/resource-not-found-error';
 import { PasswordRecoverInputDTO, PasswordRecoverOutputDTO } from '../dtos';
 
 type PasswordRecoverUseCaseOutput = Either<ResourceNotFoundError, PasswordRecoverOutputDTO>;
 
+@Injectable()
 export class PasswordRecoverUseCase {
 	constructor(
 		private readonly tokensRepository: TokensRepository,

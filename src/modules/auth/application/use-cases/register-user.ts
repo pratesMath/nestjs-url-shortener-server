@@ -2,12 +2,14 @@ import { User } from '@auth-module/domain/entities/user';
 import { UsersRepository } from '@auth-module/domain/repositories/users-repository';
 import { HashGenerator } from '@auth-module/domain/services/cryptography/hash-generator';
 import { Email } from '@auth-module/domain/value-objects/email';
+import { Injectable } from '@nestjs/common';
 import { Either, left, right } from '@shared/either';
 import { RegisterUserInputDTO, RegisterUserOutputDTO } from '../dtos';
 import { UserAlreadyExistsError } from '../errors/user-already-exists-error';
 
 type RegisterUserUseCaseOutput = Either<UserAlreadyExistsError, RegisterUserOutputDTO>;
 
+@Injectable()
 export class RegisterUserUseCase {
 	constructor(
 		private readonly hashGenerator: HashGenerator,

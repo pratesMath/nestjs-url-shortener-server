@@ -1,22 +1,17 @@
-import { User } from '@auth-module/domain/entities/user';
 import { UsersRepository } from '@auth-module/domain/repositories/users-repository';
+import { Injectable } from '@nestjs/common';
 import { Either, left, right } from '@shared/either';
 import { NotAllowedError } from '@shared/errors/errors/not-allowed-error';
 import { ResourceNotFoundError } from '@shared/errors/errors/resource-not-found-error';
+import { GetProfileInputDTO, GetProfileOutputDTO } from '../dtos';
 
-interface GetProfileUseCaseInput {
-	currentUserId: string;
-}
+type GetProfileUseCaseOutput = Either<ResourceNotFoundError | NotAllowedError, GetProfileOutputDTO>;
 
-type GetProfileUseCaseOutput = Either<
-	ResourceNotFoundError | NotAllowedError,
-	{ profile: { user: User } }
->;
-
+@Injectable()
 export class GetProfileUseCase {
 	constructor(private readonly usersRepository: UsersRepository) {}
 
-	async execute({ currentUserId }: GetProfileUseCaseInput): Promise<GetProfileUseCaseOutput> {
+	async execute({ currentUserId }: GetProfileInputDTO): Promise<GetProfileUseCaseOutput> {
 		const user = await this.usersRepository.findById(currentUserId);
 
 		if (!user) {

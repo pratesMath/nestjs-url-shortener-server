@@ -1,12 +1,14 @@
 import { UsersRepository } from '@auth-module/domain/repositories/users-repository';
 import { Encrypter } from '@auth-module/domain/services/cryptography/encrypter';
 import { HashComparer } from '@auth-module/domain/services/cryptography/hash-comparer';
+import { Injectable } from '@nestjs/common';
 import { Either, left, right } from '@shared/either';
 import { AuthenticateInputDTO, AuthenticateOutputDTO } from '../dtos';
 import { WrongCredentialsError } from '../errors/wrong-credentials-error';
 
 type AuthenticateUseCaseOutput = Either<WrongCredentialsError, AuthenticateOutputDTO>;
 
+@Injectable()
 export class AuthenticateUseCase {
 	constructor(
 		private readonly usersRepository: UsersRepository,
@@ -21,7 +23,7 @@ export class AuthenticateUseCase {
 			return left(new WrongCredentialsError());
 		}
 
-		const isPasswordValid = await this.hashComparer.compare(password, user.password);
+		const isPasswordValid = await this.hashComparer.compare(user.password, password);
 
 		if (!isPasswordValid) {
 			return left(new WrongCredentialsError());

@@ -1,3 +1,4 @@
+import { TokenType } from '@auth-module/domain/entities/token';
 import { FakeHasher } from '@test/cryptography/fake-hasher';
 import { makeToken } from '@test/factories/make-token';
 import { makeUser } from '@test/factories/make-user';
@@ -22,7 +23,7 @@ describe('[Unit] - PasswordResetUseCase', () => {
 	it('should be able to reset password', async () => {
 		const originalPassword = 'Password@123';
 		const user = makeUser({ password: await fakeHasher.hash(originalPassword) });
-		const token = makeToken({ userId: user.id, tokenType: 'PASSWORD_RECOVER' });
+		const token = makeToken({ userId: user.id, tokenType: TokenType.PASSWORD_RECOVER });
 
 		await inMemoryUsersRepository.create(user);
 		await inMemoryTokensRepository.create(token);
