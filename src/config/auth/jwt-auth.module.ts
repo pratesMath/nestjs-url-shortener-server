@@ -18,7 +18,7 @@ import { JwtAuthGuard } from './jwt/jwt-auth.guard';
 				const publicKey = env.get('JWT_PUBLIC_KEY');
 
 				return {
-					signOptions: { algorithm: 'RS256', expiresIn: '60s' },
+					signOptions: { algorithm: 'RS256', expiresIn: '15m' },
 					privateKey: Buffer.from(privateKey, 'base64'),
 					publicKey: Buffer.from(publicKey, 'base64'),
 				};
