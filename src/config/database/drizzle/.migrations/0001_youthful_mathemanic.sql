@@ -1,0 +1,1 @@
+ALTER TABLE "auth"."tokens" RENAME COLUMN "expiresIn" TO "expires_in";

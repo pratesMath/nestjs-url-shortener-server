@@ -10,9 +10,9 @@ export const tokens = authSchema.table(
 	{
 		id: t.varchar('id').notNull(),
 		userId: t.varchar('user_id').notNull(),
-		tokenType: tokenTypeEnum().notNull().default(TokenType.PASSWORD_RECOVER),
+		tokenType: tokenTypeEnum('token_type').notNull().default(TokenType.PASSWORD_RECOVER),
 		code: t.integer('code').notNull(),
-		expiresIn: t.timestamp('expiresIn', { withTimezone: true, mode: 'string' }).notNull(),
+		expiresIn: t.timestamp('expires_in', { withTimezone: true, mode: 'string' }).notNull(),
 		createdAt: t.timestamp('created_at', { withTimezone: true, mode: 'string' }).notNull(),
 	},
 	table => [
