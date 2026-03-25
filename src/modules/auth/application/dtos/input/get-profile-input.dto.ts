@@ -3,7 +3,7 @@ import { IsNotEmpty, IsUUID } from 'class-validator';
 
 export class GetProfileInputDTO {
 	@ApiProperty({
-		description: 'Username.',
+		description: 'currentUserId.',
 		example: 'baa7e502-cf66-4ef6-9d96-6740b1496b5f',
 		format: 'uuid',
 		required: true,
