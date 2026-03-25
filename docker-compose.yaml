@@ -21,6 +21,23 @@ services:
       - url_shortener_db_data:/var/lib/postgresql/data
     networks:
       - url-shortener-network
+  # Redis
+  url-shortener-cache:
+    image: redis:7-alpine
+    container_name: url-shortener-cache
+    restart: unless-stopped
+    command: redis-server --save 60 1 --loglevel warning
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - url_shortener_cache_data:/data
+    networks:
+      - url-shortener-network
 
 networks:
   url-shortener-network:
@@ -28,3 +45,4 @@ networks:
 
 volumes:
   url_shortener_db_data:
+  url_shortener_cache_data:

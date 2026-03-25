@@ -25,7 +25,8 @@
 			"@test/*": ["./test/*"],
 			"@shared/*": ["./src/shared/*"],
 			"@config/*": ["./src/config/*"],
-			"@auth-module/*": ["./src/modules/auth/*"]
+			"@auth-module/*": ["./src/modules/auth/*"],
+			"@url-shortener-module/*": ["./src/modules/url-shortener/*"]
 		}
 	}
 }

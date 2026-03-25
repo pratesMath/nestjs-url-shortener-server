@@ -30,7 +30,7 @@ export class EditUserUseCase {
 
 		const isPasswordValid = await this.hashComparer.compare(user.password, passwordToConfirm);
 
-		if (!isPasswordValid) {
+		if (isPasswordValid !== true) {
 			return left(new WrongCredentialsError());
 		}
 

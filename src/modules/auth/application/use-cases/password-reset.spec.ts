@@ -30,7 +30,7 @@ describe('[Unit] - PasswordResetUseCase', () => {
 
 		const result = await sut.execute({
 			code: token.code.toValue(),
-			password: 'NewPassword@123',
+			newPassword: 'NewPassword@123',
 		});
 
 		expect(result.isRight()).toBe(true);
