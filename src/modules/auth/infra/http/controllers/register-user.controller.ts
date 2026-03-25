@@ -18,7 +18,7 @@ import { UserPresenter } from '../presenters/user-presenter';
 @Public()
 @Controller('/auth')
 export class RegisterUserController {
-	constructor(private registerUser: RegisterUserUseCase) {}
+	constructor(private readonly registerUser: RegisterUserUseCase) {}
 
 	@ApiOperation({ summary: 'Register user.' })
 	@ApiBody({ type: RegisterUserInputDTO })

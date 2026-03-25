@@ -21,7 +21,7 @@ import { DeleteShortLinkUseCase } from '@url-shortener-module/application/use-ca
 @ApiTags('Url Shortener')
 @Controller('/url-shortener')
 export class DeleteShortLinkController {
-	constructor(private deleteShortLink: DeleteShortLinkUseCase) {}
+	constructor(private readonly deleteShortLink: DeleteShortLinkUseCase) {}
 
 	@ApiOperation({ summary: 'Delete short link.' })
 	@ApiBody({ type: DeleteShortLinkInputDTO })

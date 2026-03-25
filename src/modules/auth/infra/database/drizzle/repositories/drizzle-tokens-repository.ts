@@ -10,7 +10,7 @@ import { DrizzleTokenMapper } from '../mappers/drizzle-token-mapper';
 export class DrizzleTokensRepository implements TokensRepository {
 	constructor(
 		@Inject(DrizzleOrmProvider)
-		private db: DrizzleSchema
+		private readonly db: DrizzleSchema
 	) {}
 
 	async findByCode(code: number): Promise<Token | null> {

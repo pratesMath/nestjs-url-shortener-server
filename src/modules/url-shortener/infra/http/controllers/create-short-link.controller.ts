@@ -21,7 +21,7 @@ import { ShortLinkPresenter } from '../presenters/short-link.presenter';
 @ApiTags('Url Shortener')
 @Controller('/url-shortener')
 export class CreateShortLinkController {
-	constructor(private createShortLink: CreateShortLinkUseCase) {}
+	constructor(private readonly createShortLink: CreateShortLinkUseCase) {}
 
 	@ApiOperation({ summary: 'Create a short link.' })
 	@ApiBody({ type: CreateShortLinkInputDTO })

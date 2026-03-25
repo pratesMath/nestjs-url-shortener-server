@@ -18,7 +18,7 @@ import { TokenPresenter } from '../presenters/token-presenter';
 @Public()
 @Controller('/auth')
 export class PasswordRecoverController {
-	constructor(private passwordRecover: PasswordRecoverUseCase) {}
+	constructor(private readonly passwordRecover: PasswordRecoverUseCase) {}
 
 	@ApiOperation({ summary: 'Password recover.' })
 	@ApiBody({ type: PasswordRecoverInputDTO })

@@ -19,7 +19,7 @@ import { UserPresenter } from '../presenters/user-presenter';
 @ApiBearerAuth('access-token')
 @Controller('/auth')
 export class GetProfileController {
-	constructor(private getProfile: GetProfileUseCase) {}
+	constructor(private readonly getProfile: GetProfileUseCase) {}
 
 	@ApiOperation({ summary: 'Get profile.' })
 	@Get('/v1/profile')

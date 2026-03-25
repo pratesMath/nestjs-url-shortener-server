@@ -17,7 +17,7 @@ import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 @Public()
 @Controller('/auth')
 export class AuthenticateController {
-	constructor(private authenticate: AuthenticateUseCase) {}
+	constructor(private readonly authenticate: AuthenticateUseCase) {}
 
 	@ApiOperation({ summary: 'Sign-in.' })
 	@ApiBody({ type: AuthenticateInputDTO })

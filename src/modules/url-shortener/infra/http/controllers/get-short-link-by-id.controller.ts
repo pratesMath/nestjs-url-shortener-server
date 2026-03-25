@@ -20,7 +20,7 @@ import { ShortLinkPresenter } from '../presenters/short-link.presenter';
 @ApiTags('Url Shortener')
 @Controller('/url-shortener')
 export class GetShortLinkByIdController {
-	constructor(private getShortLinkById: GetShortLinkByIdUseCase) {}
+	constructor(private readonly getShortLinkById: GetShortLinkByIdUseCase) {}
 
 	@ApiOperation({ summary: 'Get short link data by id.' })
 	@ApiParam({

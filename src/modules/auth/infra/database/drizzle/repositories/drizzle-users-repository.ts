@@ -10,7 +10,7 @@ import { DrizzleUserMapper } from '../mappers/drizzle-user-mapper';
 export class DrizzleUsersRepository implements UsersRepository {
 	constructor(
 		@Inject(DrizzleOrmProvider)
-		private db: DrizzleSchema
+		private readonly db: DrizzleSchema
 	) {}
 
 	async passwordReset(userId: string, newPassword: string, tokenCode: number): Promise<void> {

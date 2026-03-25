@@ -18,7 +18,7 @@ import { ResourceNotFoundError } from '@shared/errors/errors/resource-not-found-
 @Public()
 @Controller('/auth')
 export class PasswordResetController {
-	constructor(private passwordReset: PasswordResetUseCase) {}
+	constructor(private readonly passwordReset: PasswordResetUseCase) {}
 
 	@ApiOperation({ summary: 'Password reset.' })
 	@ApiBody({ type: PasswordResetInputDTO })

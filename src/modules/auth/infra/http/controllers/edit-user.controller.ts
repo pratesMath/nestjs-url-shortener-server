@@ -19,7 +19,7 @@ import { ResourceNotFoundError } from '@shared/errors/errors/resource-not-found-
 @ApiBearerAuth('access-token')
 @Controller('/auth')
 export class EditUserController {
-	constructor(private editUser: EditUserUseCase) {}
+	constructor(private readonly editUser: EditUserUseCase) {}
 
 	@ApiOperation({ summary: 'Edit user.' })
 	@ApiBody({ type: EditUserInputDTO })

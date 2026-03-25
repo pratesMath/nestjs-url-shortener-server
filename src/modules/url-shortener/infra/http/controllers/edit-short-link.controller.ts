@@ -21,7 +21,7 @@ import { EditShortLinkUseCase } from '@url-shortener-module/application/use-case
 @ApiTags('Url Shortener')
 @Controller('/url-shortener')
 export class EditShortLinkController {
-	constructor(private editShortLink: EditShortLinkUseCase) {}
+	constructor(private readonly editShortLink: EditShortLinkUseCase) {}
 
 	@ApiOperation({ summary: 'Edit short link.' })
 	@ApiBody({ type: EditShortLinkInputDTO })

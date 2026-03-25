@@ -10,7 +10,7 @@ import { DrizzleShortLinkMapper } from '../mappers/drizzle-short-link.mapper';
 export class DrizzleShortLinksRepository implements ShortLinksRepository {
 	constructor(
 		@Inject(DrizzleOrmProvider)
-		private db: DrizzleSchema
+		private readonly db: DrizzleSchema
 	) {}
 
 	async findByShortLinkAndIncrementClickCount(

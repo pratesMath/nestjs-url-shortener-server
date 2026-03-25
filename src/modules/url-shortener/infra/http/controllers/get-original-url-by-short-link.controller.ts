@@ -18,7 +18,7 @@ import type { Response } from 'express';
 @Public()
 @Controller()
 export class GetOriginalUrlByShortLinkController {
-	constructor(private getOriginalUrlByShortLink: GetOriginalUrlByShortLinkUseCase) {}
+	constructor(private readonly getOriginalUrlByShortLink: GetOriginalUrlByShortLinkUseCase) {}
 
 	@ApiOperation({ summary: 'Redirect to original Url from a shorted link.' })
 	@ApiParam({
