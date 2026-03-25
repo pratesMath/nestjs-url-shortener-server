@@ -1,4 +1,4 @@
-import { Token, TokenProps } from '@auth-module/domain/entities/token';
+import { Token, TokenProps, TokenType } from '@auth-module/domain/entities/token';
 import { faker } from '@faker-js/faker';
 import { UniqueEntityID } from '@shared/entities/unique-entity-id';
 
@@ -6,7 +6,7 @@ export function makeToken(override: Partial<TokenProps> = {}, id?: UniqueEntityI
 	const token = Token.create(
 		{
 			userId: new UniqueEntityID(faker.string.uuid()),
-			tokenType: override.tokenType ?? 'PASSWORD_RECOVER',
+			tokenType: override.tokenType ?? TokenType.PASSWORD_RECOVER,
 			...override,
 		},
 		id
