@@ -4,6 +4,7 @@ import { envSchema } from '@config/env/env';
 import { EnvModule } from '@config/env/env.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { UrlShortenerModule } from './modules/url-shortener/url-shortener.module';
 
 @Module({
 	imports: [
@@ -11,9 +12,10 @@ import { ConfigModule } from '@nestjs/config';
 			validate: env => envSchema.parse(env),
 			isGlobal: true,
 		}),
-		AuthModule,
-		JWTAuthModule,
 		EnvModule,
+		JWTAuthModule,
+		AuthModule,
+		UrlShortenerModule,
 	],
 })
 export class AppModule {}

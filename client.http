@@ -1,1 +1,166 @@
-@BASE_URL=
+# Global variables
+@BASE_URL= http://localhost:7070
+@EMAIL=im.batman@gotham.dc
+@PASSWORD=BobKane&BillFinger@1939
+# Dynamic variables
+@ACCESS_TOKEN = {{authenticate_user.response.body.accessToken}}
+@PASSWORD_RECOVER_CODE = {{auth_password_recover.response.body.token.code}}
+@SHORT_LINK_ID = {{create_short_link.response.body.data.shortLink.id}}
+@FULL_SHORT_LINK = {{create_short_link.response.body.data.fullShortLink}}
+@SHORT_LINK = {{create_short_link.response.body.data.shortLink.shortUrl}}
+
+##### ℹ️ module: AUTH ℹ️ #####
+
+### src/modules/auth/infra/http/controllers/register-user.controller.ts
+# @name create_user
+curl \
+  --request 'POST' \
+  --url '{{BASE_URL}}/auth/v1/sign-up' \
+  --header 'Content-Type: application/json' \
+  --data '
+    {
+      "username": "Bruce Wayne",
+      "email": "{{EMAIL}}",
+      "password": "{{PASSWORD}}"
+    }
+  '
+
+### src/modules/auth/infra/http/controllers/authenticate.controller.ts
+# @name authenticate_user
+curl \
+  --request 'POST' \
+  --url '{{BASE_URL}}/auth/v1/sign-in' \
+  --header 'Content-Type: application/json' \
+  --data '
+    {
+      "email": "{{EMAIL}}",
+      "password": "{{PASSWORD}}"
+    }
+  '
+
+### src/modules/auth/infra/http/controllers/edit-user.controller.ts
+# @name edit_user
+curl \
+  --request 'PUT' \
+  --url '{{BASE_URL}}/auth/v1/edit' \
+  --header 'Content-Type: application/json' \
+  --header 'Authorization: Bearer {{ACCESS_TOKEN}}' \
+  --data '
+    {
+      "username": "John Doe [Edited]",
+      "passwordToConfirm": "{{PASSWORD}}"
+    }
+  '
+
+### src/modules/auth/infra/http/controllers/get-profile.controller.ts
+# @name get_user_profile
+curl \
+  --request 'GET' \
+  --url '{{BASE_URL}}/auth/v1/profile' \
+  --header 'Content-Type: application/json' \
+  --header 'Authorization: Bearer {{ACCESS_TOKEN}}'
+
+### src/modules/auth/infra/http/controllers/password-recover.controller.ts
+# @name auth_password_recover
+curl \
+  --request 'POST' \
+  --url '{{BASE_URL}}/auth/v1/password-recover' \
+  --header 'Content-Type: application/json' \
+  --data '
+    {
+      "email": "{{EMAIL}}"
+    }
+  '
+
+### src/modules/auth/infra/http/controllers/password-reset.controller.ts
+# @name auth_password_reset
+curl \
+  --request 'PUT' \
+  --url '{{BASE_URL}}/auth/v1/password-reset' \
+  --header 'Content-Type: application/json' \
+  --data '
+    {
+      "code": {{PASSWORD_RECOVER_CODE}},
+      "newPassword": "{{PASSWORD}}"
+    }
+  '
+
+##### ℹ️ module: URL SHORTENER ℹ️ #####
+
+### [❌ WITHOUT ACCESS TOKEN] src/modules/url-shortener/infra/http/controllers/create-short-link.controller.ts
+# @name create_short_link
+curl \
+  --request 'POST' \
+  --url '{{BASE_URL}}/url-shortener/v1/shorten' \
+  --header 'Content-Type: application/json' \
+  --data '
+    {
+      "description": "Link do Google",
+      "originalUrl": "https://github.com/mia"
+    }
+  '
+
+### [🔐 WITH ACCESS TOKEN] src/modules/url-shortener/infra/http/controllers/create-short-link.controller.ts
+# @name create_short_link
+curl \
+  --request 'POST' \
+  --url '{{BASE_URL}}/url-shortener/v1/shorten' \
+  --header 'Content-Type: application/json' \
+  --header 'Authorization: Bearer {{ACCESS_TOKEN}}' \
+  --data '
+    {
+      "description": "Link do Google",
+      "originalUrl": "https://github.com/mia"
+    }
+  '
+
+### src/modules/url-shortener/infra/http/controllers/delete-short-link.controller.ts
+# @name delete_short_link
+curl \
+  --request 'DELETE' \
+  --url '{{BASE_URL}}/url-shortener/v1/delete' \
+  --header 'Content-Type: application/json' \
+  --header 'Authorization: Bearer {{ACCESS_TOKEN}}' \
+  --data '
+    {
+      "shortLinkId": "{{SHORT_LINK_ID}}"
+    }
+  '
+
+### src/modules/url-shortener/infra/http/controllers/edit-short-link.controller.ts
+# @name edit_short_link
+curl \
+  --request 'PUT' \
+  --url '{{BASE_URL}}/url-shortener/v1/edit' \
+  --header 'Content-Type: application/json' \
+  --header 'Authorization: Bearer {{ACCESS_TOKEN}}' \
+  --data '
+    {
+      "newDescription": "Link do GitHub",
+      "newOriginalUrl": "https://github.com/pratesMath",
+      "shortLinkId": "{{SHORT_LINK_ID}}"
+    }
+  '
+
+### src/modules/url-shortener/infra/http/controllers/get-original-url-by-short-link.controller.ts
+# @name get_original_url_by_short_link
+curl \
+  --request 'GET' \
+  --url '{{BASE_URL}}/{{SHORT_LINK}}'
+
+### src/modules/url-shortener/infra/http/controllers/get-short-link-by-id.controller.ts
+# @name get_short_link_by_id
+curl \
+  --request 'GET' \
+  --url '{{BASE_URL}}/url-shortener/v1/{{SHORT_LINK_ID}}' \
+  --header 'Content-Type: application/json' \
+  --header 'Authorization: Bearer {{ACCESS_TOKEN}}'
+
+
+### src/modules/url-shortener/infra/http/controllers/get-short-links-by-user-id.controller.ts
+# @name get_short_links_by_user_id
+curl \
+  --request 'GET' \
+  --url '{{BASE_URL}}/url-shortener/v1' \
+  --header 'Content-Type: application/json' \
+  --header 'Authorization: Bearer {{ACCESS_TOKEN}}'
