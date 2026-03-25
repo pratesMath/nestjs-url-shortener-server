@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Either, left, right } from '@shared/either';
 import { UniqueEntityID } from '@shared/entities/unique-entity-id';
 import { NotAllowedError } from '@shared/errors/errors/not-allowed-error';
@@ -16,19 +16,38 @@ type DeleteShortLinkUseCaseOutput = Either<
 
 @Injectable()
 export class DeleteShortLinkUseCase {
+	private readonly logger = new Logger(DeleteShortLinkUseCase.name);
+
 	constructor(private readonly shortLinksRepository: ShortLinksRepository) {}
 
 	async execute({
 		currentUserId,
 		shortLinkId,
 	}: DeleteShortLinkUseCaseProps): Promise<DeleteShortLinkUseCaseOutput> {
+		this.logger.log({
+			message: 'Attempting to delete short link.',
+			shortLinkId,
+			userId: currentUserId,
+		});
+
 		const shortLink = await this.shortLinksRepository.findById(shortLinkId);
 
 		if (!shortLink) {
+			this.logger.warn({
+				message: 'Delete failed: short link not found.',
+				shortLinkId,
+				userId: currentUserId,
+			});
 			return left(new ResourceNotFoundError());
 		}
 
 		if (!shortLink.userId) {
+			this.logger.warn({
+				message: 'Delete failed: unauthorized user attempt.',
+				shortLinkId,
+				ownerId: null,
+				attemptedById: currentUserId,
+			});
 			return left(new NotAllowedError());
 		}
 
@@ -39,6 +58,13 @@ export class DeleteShortLinkUseCase {
 		shortLink.deletedAt = new Date();
 
 		await this.shortLinksRepository.delete(shortLink);
+
+		this.logger.log({
+			message: 'Short link deleted successfully.',
+			shortLinkId,
+			userId: currentUserId,
+			originalUrl: shortLink.originalUrl,
+		});
 
 		return right(null);
 	}
