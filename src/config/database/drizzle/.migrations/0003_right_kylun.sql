@@ -1,0 +1,1 @@
+ALTER TABLE "url_shortener"."short_links" ALTER COLUMN "user_id" DROP NOT NULL;

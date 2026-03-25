@@ -28,9 +28,10 @@ export const swaggerConfig = new DocumentBuilder()
 			description: 'Input here your JWT Access Token.',
 			in: 'header',
 		},
-		'JWT Auth'
+		'access-token'
 	)
-	.addTag('Auth', 'Authentication and User access endpoints.')
+	.addTag('Auth', 'Authentication and User endpoints.')
+	.addTag('Url Shortener', "Shortened Url's endpoints.")
 	.build();
 
 export function getSwaggerConfig() {
