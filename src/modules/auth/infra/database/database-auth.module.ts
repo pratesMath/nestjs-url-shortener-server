@@ -1,5 +1,6 @@
 import { TokensRepository } from '@auth-module/domain/repositories/tokens-repository';
 import { UsersRepository } from '@auth-module/domain/repositories/users-repository';
+import { CacheModule } from '@config/cache/cache.module';
 import { DrizzleOrmProvider, drizzleProvider } from '@config/database/drizzle/drizzle.provider';
 import { EnvModule } from '@config/env/env.module';
 import { Module } from '@nestjs/common';
@@ -7,7 +8,7 @@ import { DrizzleTokensRepository } from './drizzle/repositories/drizzle-tokens-r
 import { DrizzleUsersRepository } from './drizzle/repositories/drizzle-users-repository';
 
 @Module({
-	imports: [EnvModule],
+	imports: [CacheModule, EnvModule],
 	providers: [
 		...drizzleProvider,
 		{

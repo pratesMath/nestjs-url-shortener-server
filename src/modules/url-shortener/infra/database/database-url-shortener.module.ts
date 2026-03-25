@@ -1,3 +1,4 @@
+import { CacheModule } from '@config/cache/cache.module';
 import { DrizzleOrmProvider, drizzleProvider } from '@config/database/drizzle/drizzle.provider';
 import { EnvModule } from '@config/env/env.module';
 import { Module } from '@nestjs/common';
@@ -5,7 +6,7 @@ import { ShortLinksRepository } from '@url-shortener-module/domain/repositories/
 import { DrizzleShortLinksRepository } from './drizzle/repositories/drizzle-short-links-repository';
 
 @Module({
-	imports: [EnvModule],
+	imports: [CacheModule, EnvModule],
 	providers: [
 		...drizzleProvider,
 		{
