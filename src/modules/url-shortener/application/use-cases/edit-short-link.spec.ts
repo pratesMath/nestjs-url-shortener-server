@@ -24,7 +24,7 @@ describe('[Unit] - EditShortLinkUseCase', () => {
 		await inMemoryShortLinksRepository.create(shortLink);
 
 		const result = await sut.execute({
-			currentUserId: shortLink.userId.toValue(),
+			currentUserId: 'user-01',
 			shortLinkId: shortLink.id.toString(),
 			newOriginalUrl: 'https://new-url.com',
 			newDescription: 'New Description',
@@ -73,7 +73,7 @@ describe('[Unit] - EditShortLinkUseCase', () => {
 		await inMemoryShortLinksRepository.create(shortLink);
 
 		const result = await sut.execute({
-			currentUserId: shortLink.userId.toValue(),
+			currentUserId: 'user-01',
 			shortLinkId: shortLink.id.toString(),
 			newOriginalUrl: 'invalid-url',
 			newDescription: null,

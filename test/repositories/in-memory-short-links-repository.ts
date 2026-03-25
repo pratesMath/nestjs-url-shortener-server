@@ -31,14 +31,14 @@ export class InMemoryShortLinksRepository implements ShortLinksRepository {
 
 	async findByOriginalUrl(originalUrl: string, userId: string): Promise<ShortLink | null> {
 		const item = this.items.find(
-			item => item.originalUrl === originalUrl && item.userId.toString() === userId
+			item => item.originalUrl === originalUrl && item.userId?.toString() === userId
 		);
 
 		return item ?? null;
 	}
 
 	async findManyByUserId(userId: string): Promise<ShortLink[] | null> {
-		const links = this.items.filter(item => item.userId.toString() === userId);
+		const links = this.items.filter(item => item.userId?.toString() === userId);
 
 		return links.length > 0 ? links : null;
 	}

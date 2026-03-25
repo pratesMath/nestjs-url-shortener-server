@@ -9,7 +9,14 @@ import { UrlShortenerModule } from './modules/url-shortener/url-shortener.module
 @Module({
 	imports: [
 		ConfigModule.forRoot({
-			validate: env => envSchema.parse(env),
+			validate: env => {
+				const result = envSchema.safeParse(env);
+				if (!result.success) {
+					console.error('❌ ENV variables validations error:', result.error);
+					throw new Error('Invalid environment setup.');
+				}
+				return result.data;
+			},
 			isGlobal: true,
 		}),
 		EnvModule,

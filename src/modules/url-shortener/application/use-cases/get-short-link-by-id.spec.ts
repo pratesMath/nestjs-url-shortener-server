@@ -16,11 +16,13 @@ describe('[Unit] - GetShortLinkByIdUseCase', () => {
 	});
 
 	it('should be able to get a short link by id', async () => {
-		const newShortLink = makeShortLink();
+		const newShortLink = makeShortLink({
+			userId: new UniqueEntityID('user-01'),
+		});
 		await inMemoryShortLinksRepository.create(newShortLink);
 
 		const result = await sut.execute({
-			currentUserId: newShortLink.userId.toString(),
+			currentUserId: 'user-01',
 			shortLinkId: newShortLink.id.toString(),
 		});
 

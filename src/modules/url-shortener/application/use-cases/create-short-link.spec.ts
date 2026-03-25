@@ -25,7 +25,7 @@ describe('[Unit] - CreateShortLinkUseCase', () => {
 		const shortLink = makeShortLink();
 
 		const result = await sut.execute({
-			currentUserId: shortLink.userId.toValue(),
+			currentUserId: shortLink.userId ? shortLink.userId.toValue() : null,
 			description: shortLink.description,
 			originalUrl: shortLink.originalUrl,
 		});
@@ -43,7 +43,7 @@ describe('[Unit] - CreateShortLinkUseCase', () => {
 		await inMemoryShortLinksRepository.create(shortLink);
 
 		const result = await sut.execute({
-			currentUserId: shortLink.userId.toValue(),
+			currentUserId: shortLink.userId ? shortLink.userId.toValue() : null,
 			description: null,
 			originalUrl: shortLink.originalUrl,
 		});
@@ -58,7 +58,7 @@ describe('[Unit] - CreateShortLinkUseCase', () => {
 		await inMemoryShortLinksRepository.create(shortLink);
 
 		const result = await sut.execute({
-			currentUserId: shortLink.userId.toValue(),
+			currentUserId: shortLink.userId ? shortLink.userId.toValue() : null,
 			description: null,
 			originalUrl: 'my-random-and-invalid-url',
 		});
