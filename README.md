@@ -8,7 +8,7 @@ This "NestJS URL Shortener Server" was developed to Teddy Open Finance as back-e
 - **PNPM** - fast and modern npm alternative;
 - **NestJS** - as back-end framework;
 - **Docker** - for deploy, virtualization and test environment;
-- **Vitest** - as modern task framework;
+- **Vitest** - as modern test framework;
 - **PostgreSQL** - relational database;
   - Database separated in 2 schemas:
     - auth;

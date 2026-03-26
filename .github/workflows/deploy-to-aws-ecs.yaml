@@ -35,7 +35,7 @@ jobs:
       - name: Install dependencies
         id: install-dependencies
         run: |
-          pnpm Install
+          pnpm install
 
       - name: Execute Type Check
         id: execute-type-check
