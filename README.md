@@ -21,18 +21,20 @@ This "NestJS URL Shortener Server" was developed to Teddy Open Finance as back-e
 - **RS256 for JWT** - further explanations below.:
 - **Argon2** - used for password hash, reason:
   - customized:
-    - Memory Cost (*m*): How much RAM the algorithm will use;
-    - Time Cost (*t*): How many iterations it will perform on memory;
-    - Parallelism (*p*): How many processor threads it can occupy;
-  - **NOTE**: In 2015, won the *Password Hashing Competition* (PHC), beating **Bcrypt** and **Scrypt**.
+    - Memory Cost (_m_): How much RAM the algorithm will use;
+    - Time Cost (_t_): How many iterations it will perform on memory;
+    - Parallelism (_p_): How many processor threads it can occupy;
+  - **NOTE**: In 2015, won the _Password Hashing Competition_ (PHC), beating **Bcrypt** and **Scrypt**.
 
 This project was not built as a microservice, but as a modular monolith. Reasons:
+
 - Reduced evelopment time;
 - Higher development complexity;
 - Greater configuration of network services (Docker, RabbitMQ, Redis, PostgreSQL, etc.);
 - Higher project cost in a production environment;
 
 **NOTE**: I envisioned this project as an MVP, where as the project grew and the need arose, I could:
+
 - Isolate each module as a domain, each with its own area of ​​expertise and business;
 
 ## 💻 1# Requirements to run this project
@@ -62,9 +64,20 @@ npm i -g pnpm
 **Install Docker** - https://docs.docker.com/engine/install/
 
 Type **@recommended** on VSCode Search to install recommended extensions to run this project. They are based on `./vscode/extensions.json`.
+
 - Required extensions:
   - REST Client;
   - BiomeJS;
+
+Copy .env file and execute the commands below.
+
+```SH
+docker compose up -d
+pnpm run db:migrate
+pnpm run start:dev
+```
+
+Swagger docs available at -> `http://localhost:7070/docs`.
 
 ## 🔐 2# .env file
 
@@ -93,9 +106,10 @@ JWT_PUBLIC_KEY=LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUlJQklqQU5CZ2txaGtpRzl3MEJBU
 ## 🗝️ 3# Applying RSA Algorithm for JWT
 
 Why do use "**asymmetric keys**"? Simple, for the below advantages:
+
 - The "secret" works with a pair of key (**private** and **public** keys);
-  - *private* key generates tokens;
-  - *public* only validate them;
+  - _private_ key generates tokens;
+  - _public_ only validate them;
 - High level **security**;
 - Perfect fit on **microservices** scenarios;
   - A centralized auth service that generates all access and refreshes tokens, while another MS's only consume them at HTTP headers (for example);
@@ -103,6 +117,7 @@ Why do use "**asymmetric keys**"? Simple, for the below advantages:
 - It's not complex to handle (but **requires a certificates management**);
 
 **Step 1** - Generate **private** & **public** Key files.
+
 ```SH
 # Generate private key
 openssl genpkey -algorithm RSA -out private-key.pem -pkeyopt rsa_keygen_bits:2048
@@ -111,6 +126,7 @@ openssl rsa -pubout -in private-key.pem -out public-key.pem
 ```
 
 **Step 2** - Generate private & public Key in base64 format.
+
 ```SH
 # Generate base64 from "private-key.pem"
 base64 private-key.pem > private-key.txt
@@ -119,62 +135,66 @@ base64 public-key.pem > public-key.txt
 ```
 
 **Step 3** - Copy code from `private-key.txt` and `public-key.txt` files and paste in their respective `.env` file variables.
+
 - **NOTE**: Do not forget to delete all this generated files from steps 1 and 2;
 
-
 ## 😎 4# Features
+
 **Auth**: `src/modules/auth`
-- [X] Authenticate User;
-  - [X] use case: `src/modules/auth/application/use-cases/authenticate-user.ts`;
-  - [X] unit test: `src/modules/auth/application/use-cases/authenticate-user.spec.ts`;
-  - [X] controller: `src/modules/auth/infra/http/controllers/authenticate-user.controller.ts`;
-- [X] Edit User;
-  - [X] use case: `src/modules/auth/application/use-cases/edit-user.ts`;
-  - [X] unit test: `src/modules/auth/application/use-cases/edit-user.spec.ts`;
-  - [X] controller: `src/modules/auth/infra/http/controllers/edit-user.controller.ts`;
-- [X] Get Profile;
-  - [X] use case: `src/modules/auth/application/use-cases/get-profile.ts`;
-  - [X] unit test: `src/modules/auth/application/use-cases/get-profile.spec.ts`;
-  - [X] controller: `src/modules/auth/infra/http/controllers/get-profile.controller.ts`;
-- [X] Password Recover;
-  - [X] use case: `src/modules/auth/application/use-cases/password-recover.ts`;
-  - [X] unit test: `src/modules/auth/application/use-cases/password-recover.spec.ts`;
-  - [X] controller: `src/modules/auth/infra/http/controllers/password-recover.controller.ts`;
-- [X] Register User;
-  - [X] use case: `src/modules/auth/application/use-cases/register-user.ts`;
-  - [X] unit test: `src/modules/auth/application/use-cases/register-user.spec.ts`;
-  - [X] controller: `src/modules/auth/infra/http/controllers/register-user.controller.ts`;
+
+- [x] Authenticate User;
+  - [x] use case: `src/modules/auth/application/use-cases/authenticate-user.ts`;
+  - [x] unit test: `src/modules/auth/application/use-cases/authenticate-user.spec.ts`;
+  - [x] controller: `src/modules/auth/infra/http/controllers/authenticate-user.controller.ts`;
+- [x] Edit User;
+  - [x] use case: `src/modules/auth/application/use-cases/edit-user.ts`;
+  - [x] unit test: `src/modules/auth/application/use-cases/edit-user.spec.ts`;
+  - [x] controller: `src/modules/auth/infra/http/controllers/edit-user.controller.ts`;
+- [x] Get Profile;
+  - [x] use case: `src/modules/auth/application/use-cases/get-profile.ts`;
+  - [x] unit test: `src/modules/auth/application/use-cases/get-profile.spec.ts`;
+  - [x] controller: `src/modules/auth/infra/http/controllers/get-profile.controller.ts`;
+- [x] Password Recover;
+  - [x] use case: `src/modules/auth/application/use-cases/password-recover.ts`;
+  - [x] unit test: `src/modules/auth/application/use-cases/password-recover.spec.ts`;
+  - [x] controller: `src/modules/auth/infra/http/controllers/password-recover.controller.ts`;
+- [x] Register User;
+  - [x] use case: `src/modules/auth/application/use-cases/register-user.ts`;
+  - [x] unit test: `src/modules/auth/application/use-cases/register-user.spec.ts`;
+  - [x] controller: `src/modules/auth/infra/http/controllers/register-user.controller.ts`;
 
 **Url Shortener**: `src/modules/url-shortener`
-- [X] create-short-link;
-  - [X] use case: `src/modules/url-shortener/application/use-cases/create-short-link.ts`;
-  - [X] unit test: `src/modules/url-shortener/application/use-cases/create-short-link.spec.ts`;
-  - [X] controller: `src/modules/url-shortener/infra/http/controllers/create-short-link.controller.ts`;
-- [X] delete-short-link;
-  - [X] use case: `src/modules/url-shortener/application/use-cases/delete-short-link.ts`;
-  - [X] unit test: `src/modules/url-shortener/application/use-cases/delete-short-link.spec.ts`;
-  - [X] controller: `src/modules/url-shortener/infra/http/controllers/delete-short-link.controller.ts`;
-- [X] edit-short-link;
-  - [X] use case: `src/modules/url-shortener/application/use-cases/edit-short-link.ts`;
-  - [X] unit test: `src/modules/url-shortener/application/use-cases/edit-short-link.spec.ts`;
-  - [X] controller: `src/modules/url-shortener/infra/http/controllers/edit-short-link.controller.ts`;
-- [X] get-original-url-by-short-link;
-  - [X] use case: `src/modules/url-shortener/application/use-cases/get-original-url-by-short-link.ts`;
-  - [X] unit test: `src/modules/url-shortener/application/use-cases/get-original-url-by-short-link.spec.ts`;
-  - [X] controller: `src/modules/url-shortener/infra/http/controllers/get-original-url-by-short-link.controller.ts`;
-- [X] get-short-link-by-id;
-  - [X] use case: `src/modules/url-shortener/application/use-cases/get-short-link-by-id.ts`;
-  - [X] unit test: `src/modules/url-shortener/application/use-cases/get-short-link-by-id.spec.ts`;
-  - [X] controller: `src/modules/url-shortener/infra/http/controllers/get-short-link-by-id.controller.ts`;
-- [X] get-short-links-by-user-id;
-  - [X] use case: `src/modules/url-shortener/application/use-cases/get-short-links-by-user-id.ts`;
-  - [X] unit test: `src/modules/url-shortener/application/use-cases/get-short-links-by-user-id.spec.ts`;
-  - [X] controller: `src/modules/url-shortener/infra/http/controllers/get-short-links-by-user-id.controller.ts`;
+
+- [x] create-short-link;
+  - [x] use case: `src/modules/url-shortener/application/use-cases/create-short-link.ts`;
+  - [x] unit test: `src/modules/url-shortener/application/use-cases/create-short-link.spec.ts`;
+  - [x] controller: `src/modules/url-shortener/infra/http/controllers/create-short-link.controller.ts`;
+- [x] delete-short-link;
+  - [x] use case: `src/modules/url-shortener/application/use-cases/delete-short-link.ts`;
+  - [x] unit test: `src/modules/url-shortener/application/use-cases/delete-short-link.spec.ts`;
+  - [x] controller: `src/modules/url-shortener/infra/http/controllers/delete-short-link.controller.ts`;
+- [x] edit-short-link;
+  - [x] use case: `src/modules/url-shortener/application/use-cases/edit-short-link.ts`;
+  - [x] unit test: `src/modules/url-shortener/application/use-cases/edit-short-link.spec.ts`;
+  - [x] controller: `src/modules/url-shortener/infra/http/controllers/edit-short-link.controller.ts`;
+- [x] get-original-url-by-short-link;
+  - [x] use case: `src/modules/url-shortener/application/use-cases/get-original-url-by-short-link.ts`;
+  - [x] unit test: `src/modules/url-shortener/application/use-cases/get-original-url-by-short-link.spec.ts`;
+  - [x] controller: `src/modules/url-shortener/infra/http/controllers/get-original-url-by-short-link.controller.ts`;
+- [x] get-short-link-by-id;
+  - [x] use case: `src/modules/url-shortener/application/use-cases/get-short-link-by-id.ts`;
+  - [x] unit test: `src/modules/url-shortener/application/use-cases/get-short-link-by-id.spec.ts`;
+  - [x] controller: `src/modules/url-shortener/infra/http/controllers/get-short-link-by-id.controller.ts`;
+- [x] get-short-links-by-user-id;
+  - [x] use case: `src/modules/url-shortener/application/use-cases/get-short-links-by-user-id.ts`;
+  - [x] unit test: `src/modules/url-shortener/application/use-cases/get-short-links-by-user-id.spec.ts`;
+  - [x] controller: `src/modules/url-shortener/infra/http/controllers/get-short-links-by-user-id.controller.ts`;
 
 ## 🗂️ 5# Folder Structure
-The Project folder structure was implemented inspired on bellow imagem from **Clean Architecture** book (by Robert C. Martin).
-- I made a mix of **Clean Arch and DDD (Domain Driven Design)**;
 
+The Project folder structure was implemented inspired on bellow imagem from **Clean Architecture** book (by Robert C. Martin).
+
+- I made a mix of **Clean Arch and DDD (Domain Driven Design)**;
 
 <div align="center">
   <img src=".github/images/the-clean-architecture.jpg" alt="" width="500">
@@ -217,7 +237,6 @@ src/
   - libs/ - Third-party wrappers or utility functions
   - types/ - Global TypeScript definitions and interfaces
 ```
-
 
 ## 👨‍💻 6# NPM Scripts added
 
