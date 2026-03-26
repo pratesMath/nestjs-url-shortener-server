@@ -18,7 +18,7 @@ services:
       timeout: 5s
       retries: 5
     volumes:
-      - url_shortener_db_data:/var/lib/postgresql/data
+      - './docker:/docker-entrypoint-initdb.d'
     networks:
       - url-shortener-network
   # Redis
@@ -44,5 +44,4 @@ networks:
     driver: bridge
 
 volumes:
-  url_shortener_db_data:
   url_shortener_cache_data:
