@@ -10,7 +10,7 @@ import {
 	HttpStatus,
 	Post,
 } from '@nestjs/common';
-import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateShortLinkInputDTO } from '@url-shortener-module/application/dtos';
 import { MalformedURLError } from '@url-shortener-module/application/errors/malformed-url-error';
 import { ShortLinkAlreadyExistsError } from '@url-shortener-module/application/errors/short-link-already-exists-error';
@@ -25,6 +25,9 @@ export class CreateShortLinkController {
 
 	@ApiOperation({ summary: 'Create a short link.' })
 	@ApiBody({ type: CreateShortLinkInputDTO })
+	@ApiResponse({ status: HttpStatus.CREATED, description: 'Short link created successfully.' })
+	@ApiResponse({ status: HttpStatus.CONFLICT, description: 'Short link already exists.' })
+	@ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad request.' })
 	@Post('/v1/shorten')
 	@HttpCode(HttpStatus.CREATED)
 	async handle(@Body() body: CreateShortLinkInputDTO, @CurrentUser() user?: UserPayload) {

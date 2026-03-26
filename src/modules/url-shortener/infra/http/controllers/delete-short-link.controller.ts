@@ -10,7 +10,7 @@ import {
 	NotFoundException,
 	UnauthorizedException,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { NotAllowedError } from '@shared/errors/errors/not-allowed-error';
 import { ResourceNotFoundError } from '@shared/errors/errors/resource-not-found-error';
 import { DeleteShortLinkInputDTO } from '@url-shortener-module/application/dtos';
@@ -25,6 +25,10 @@ export class DeleteShortLinkController {
 
 	@ApiOperation({ summary: 'Delete short link.' })
 	@ApiBody({ type: DeleteShortLinkInputDTO })
+	@ApiResponse({ status: HttpStatus.NO_CONTENT, description: 'Short link deleted successfully.' })
+	@ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'Short link not found.' })
+	@ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: 'Unauthorized.' })
+	@ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad request.' })
 	@Delete('/v1/delete')
 	@HttpCode(HttpStatus.NO_CONTENT)
 	async handle(@Body() body: DeleteShortLinkInputDTO, @CurrentUser() user: UserPayload) {

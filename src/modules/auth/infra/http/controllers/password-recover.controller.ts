@@ -10,7 +10,7 @@ import {
 	NotFoundException,
 	Post,
 } from '@nestjs/common';
-import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ResourceNotFoundError } from '@shared/errors/errors/resource-not-found-error';
 import { TokenPresenter } from '../presenters/token-presenter';
 
@@ -22,6 +22,9 @@ export class PasswordRecoverController {
 
 	@ApiOperation({ summary: 'Password recover.' })
 	@ApiBody({ type: PasswordRecoverInputDTO })
+	@ApiResponse({ status: HttpStatus.CREATED, description: 'Password recover sent.' })
+	@ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'User not found.' })
+	@ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad request.' })
 	@Post('/v1/password-recover')
 	@HttpCode(HttpStatus.CREATED)
 	async handle(@Body() body: PasswordRecoverInputDTO) {

@@ -9,7 +9,7 @@ import {
 	Param,
 	Res,
 } from '@nestjs/common';
-import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ResourceNotFoundError } from '@shared/errors/errors/resource-not-found-error';
 import { GetOriginalUrlByShortLinkUseCase } from '@url-shortener-module/application/use-cases/get-original-url-by-short-link';
 import type { Response } from 'express';
@@ -21,12 +21,10 @@ export class GetOriginalUrlByShortLinkController {
 	constructor(private readonly getOriginalUrlByShortLink: GetOriginalUrlByShortLinkUseCase) {}
 
 	@ApiOperation({ summary: 'Redirect to original Url from a shorted link.' })
-	@ApiParam({
-		name: 'shortedLink',
-		type: String,
-		required: true,
-		example: 'D69H6b',
-	})
+	@ApiParam({ name: 'shortedLink', type: String, required: true, example: 'D69H6b' })
+	@ApiResponse({ status: HttpStatus.OK, description: 'Short link returned successfully.' })
+	@ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'Short link not found.' })
+	@ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad request.' })
 	@Get(':shortedLink')
 	@HttpCode(HttpStatus.OK)
 	async handle(@Param('shortedLink') shortedLink: string, @Res() res: Response) {

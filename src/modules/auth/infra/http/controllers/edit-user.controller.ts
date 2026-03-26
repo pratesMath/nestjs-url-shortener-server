@@ -12,7 +12,7 @@ import {
 	NotFoundException,
 	Put,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ResourceNotFoundError } from '@shared/errors/errors/resource-not-found-error';
 
 @ApiTags('Auth')
@@ -23,6 +23,9 @@ export class EditUserController {
 
 	@ApiOperation({ summary: 'Edit user.' })
 	@ApiBody({ type: EditUserInputDTO })
+	@ApiResponse({ status: HttpStatus.NO_CONTENT, description: 'User edited successfully.' })
+	@ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'User not found.' })
+	@ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad request.' })
 	@Put('/v1/edit')
 	@HttpCode(HttpStatus.NO_CONTENT)
 	async handle(@Body() body: EditUserInputDTO, @CurrentUser() user: UserPayload) {

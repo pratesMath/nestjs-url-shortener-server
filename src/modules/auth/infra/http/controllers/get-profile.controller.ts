@@ -10,7 +10,7 @@ import {
 	NotFoundException,
 	UnauthorizedException,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { NotAllowedError } from '@shared/errors/errors/not-allowed-error';
 import { ResourceNotFoundError } from '@shared/errors/errors/resource-not-found-error';
 import { UserPresenter } from '../presenters/user-presenter';
@@ -22,6 +22,10 @@ export class GetProfileController {
 	constructor(private readonly getProfile: GetProfileUseCase) {}
 
 	@ApiOperation({ summary: 'Get profile.' })
+	@ApiResponse({ status: HttpStatus.OK, description: 'User profile returned successfully.' })
+	@ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'User not found.' })
+	@ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: 'Unauthorized.' })
+	@ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad request.' })
 	@Get('/v1/profile')
 	@HttpCode(HttpStatus.OK)
 	async handle(@CurrentUser() user: UserPayload) {

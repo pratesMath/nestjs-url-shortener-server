@@ -9,10 +9,13 @@ export const swaggerConfig = new DocumentBuilder()
     NodeJS application developed with NestJS to create and serve an URL Shortener Server.
 
     Resources available:
-    - Auth & Users:
+  	- Auth & Users:
       - Create your account;
       - View and Update your profile with privacy;
-      - Recover and Reset your password whenever you want;
+      - Recover and Reset your password every time you need;
+  	- URL Shortener:
+      - Shorten your URL whenever you want;
+			- Access your list of short links;
 
     Authentication method:
     - Use JWT Bearer token for protected routes;

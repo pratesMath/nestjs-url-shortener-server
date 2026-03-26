@@ -11,7 +11,7 @@ import {
 	HttpStatus,
 	Post,
 } from '@nestjs/common';
-import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserPresenter } from '../presenters/user-presenter';
 
 @ApiTags('Auth')
@@ -22,6 +22,9 @@ export class RegisterUserController {
 
 	@ApiOperation({ summary: 'Register user.' })
 	@ApiBody({ type: RegisterUserInputDTO })
+	@ApiResponse({ status: HttpStatus.CREATED, description: 'User created successfully.' })
+	@ApiResponse({ status: HttpStatus.CONFLICT, description: 'User already exists.' })
+	@ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad request.' })
 	@Post('/v1/sign-up')
 	@HttpCode(HttpStatus.CREATED)
 	async handle(@Body() body: RegisterUserInputDTO) {

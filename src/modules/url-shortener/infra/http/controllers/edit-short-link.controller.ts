@@ -10,7 +10,7 @@ import {
 	Put,
 	UnauthorizedException,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { NotAllowedError } from '@shared/errors/errors/not-allowed-error';
 import { ResourceNotFoundError } from '@shared/errors/errors/resource-not-found-error';
 import { EditShortLinkInputDTO } from '@url-shortener-module/application/dtos';
@@ -25,6 +25,10 @@ export class EditShortLinkController {
 
 	@ApiOperation({ summary: 'Edit short link.' })
 	@ApiBody({ type: EditShortLinkInputDTO })
+	@ApiResponse({ status: HttpStatus.NO_CONTENT, description: 'Short link edited successfully.' })
+	@ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'Short link not found.' })
+	@ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: 'Unauthorized.' })
+	@ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad request.' })
 	@Put('/v1/edit')
 	@HttpCode(HttpStatus.NO_CONTENT)
 	async handle(@Body() body: EditShortLinkInputDTO, @CurrentUser() user: UserPayload) {

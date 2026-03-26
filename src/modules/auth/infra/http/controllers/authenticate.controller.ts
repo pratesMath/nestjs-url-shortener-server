@@ -1,4 +1,4 @@
-import { AuthenticateInputDTO } from '@auth-module/application/dtos';
+import { AuthenticateInputDTO, AuthenticateOutputDTO } from '@auth-module/application/dtos';
 import { WrongCredentialsError } from '@auth-module/application/errors/wrong-credentials-error';
 import { AuthenticateUseCase } from '@auth-module/application/use-cases/authenticate';
 import { Public } from '@config/auth/public';
@@ -11,7 +11,7 @@ import {
 	HttpStatus,
 	Post,
 } from '@nestjs/common';
-import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Auth')
 @Public()
@@ -21,6 +21,9 @@ export class AuthenticateController {
 
 	@ApiOperation({ summary: 'Sign-in.' })
 	@ApiBody({ type: AuthenticateInputDTO })
+	@ApiResponse({ status: HttpStatus.CREATED, description: 'User authenticated successfully.' })
+	@ApiResponse({ status: HttpStatus.CONFLICT, description: 'Invalid credentials provided.' })
+	@ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad request.' })
 	@Post('/v1/sign-in')
 	@HttpCode(HttpStatus.CREATED)
 	async handle(@Body() body: AuthenticateInputDTO) {

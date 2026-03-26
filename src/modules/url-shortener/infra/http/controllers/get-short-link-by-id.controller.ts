@@ -10,7 +10,7 @@ import {
 	Param,
 	UnauthorizedException,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { NotAllowedError } from '@shared/errors/errors/not-allowed-error';
 import { ResourceNotFoundError } from '@shared/errors/errors/resource-not-found-error';
 import { GetShortLinkByIdUseCase } from '@url-shortener-module/application/use-cases/get-short-link-by-id';
@@ -29,6 +29,10 @@ export class GetShortLinkByIdController {
 		required: true,
 		example: 'baa7e502-cf66-4ef6-9d96-6740b1496b5f',
 	})
+	@ApiResponse({ status: HttpStatus.OK, description: 'Short link returned successfully.' })
+	@ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'Short link not found.' })
+	@ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: 'Unauthorized.' })
+	@ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad request.' })
 	@Get('/v1/:shortLinkId')
 	@HttpCode(HttpStatus.OK)
 	async handle(@Param('shortLinkId') shortLinkId: string, @CurrentUser() user: UserPayload) {
