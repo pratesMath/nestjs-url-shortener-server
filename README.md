@@ -2,18 +2,7 @@
 
 This "NestJS URL Shortener Server" was developed to Teddy Open Finance as back-end developer test.
 
-## Glossary
-
-- [Stack](#stack)
-- [1# Requirements to run this project](#requirements)
-- [2# .env file](#env-file)
-- [3# Applying RSA Algorithm for JWT](#rsa-setup)
-- [4# Features](#features)
-- [5# Folder Structure](#folder-structure)
-- [NPM Scripts added](#npm-scripts-added)
-- [7# Project Dependencies](#project-dependencies)
-
-## Stack
+## 🚀 Stack
 
 - **NodeJS + NVM** - NVM is Node Package Manager;
 - **PNPM** - fast and modern npm alternative;
@@ -46,7 +35,7 @@ This project was not built as a microservice, but as a modular monolith. Reasons
 **NOTE**: I envisioned this project as an MVP, where as the project grew and the need arose, I could:
 - Isolate each module as a domain, each with its own area of ​​expertise and business;
 
-## 1# Requirements to run this project
+## 💻 1# Requirements to run this project
 
 **Clone the project**
 
@@ -77,7 +66,7 @@ Type **@recommended** on VSCode Search to install recommended extensions to run 
   - REST Client;
   - BiomeJS;
 
-## 2# .env file
+## 🔐 2# .env file
 
 ```SH
 # .env file
@@ -101,7 +90,7 @@ JWT_PRIVATE_KEY=LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUV2QUlCQURBTkJna3Foa2lH
 JWT_PUBLIC_KEY=LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUEzRDI5VTNXQXlieXl1V2hSOTlYNQozYTR0MUFOY1czRmNYWGJiV0lyblltVTJoTVE3OFlYQmJ4SzZtVTRnaXlHOWRlb0RuYkVzWGdFT05QVVpGQTl6CjlhQy91OEM5eEY2ZDA0RnA5ckNXc1VGdXF5QUh3bC9UQUdhQnVqT3VXMlc0dGNld3ZtYTZWM1c1YVNVZ1pPNm8KUmhzMWl3YlJNaXc2SWk4MEJzVSs0eUNXa2xLMXMyMkJxc3JIejV5ZktIVnNUSGNhRUQ1N2lWbVJrdnBJbVBydApWWTUwbDkwbkxzYnBxL05ERHpFMmFDQlFiTmRpRWw2Q3NJT3hDZHRqWndXMnAvdUZSRjVjU1E4YVQzczQ3bm5PCnhzc0NDMUZPd1pLNkZtaTBkN0dGMzRIUklDVDhPZ1ordzkxZmJRRVF5UmhLclB3SkF2ZmpuZlFpWVRRT1oxVW8KRHdJREFRQUIKLS0tLS1FTkQgUFVCTElDIEtFWS0tLS0tCg==
 ```
 
-## 3# Applying RSA Algorithm for JWT
+## 🗝️ 3# Applying RSA Algorithm for JWT
 
 Why do use "**asymmetric keys**"? Simple, for the below advantages:
 - The "secret" works with a pair of key (**private** and **public** keys);
@@ -133,7 +122,7 @@ base64 public-key.pem > public-key.txt
 - **NOTE**: Do not forget to delete all this generated files from steps 1 and 2;
 
 
-## 4# Features
+## 😎 4# Features
 **Auth**: `src/modules/auth`
 - [X] Authenticate User;
   - [X] use case: `src/modules/auth/application/use-cases/authenticate-user.ts`;
@@ -182,7 +171,7 @@ base64 public-key.pem > public-key.txt
   - [X] unit test: `src/modules/url-shortener/application/use-cases/get-short-links-by-user-id.spec.ts`;
   - [X] controller: `src/modules/url-shortener/infra/http/controllers/get-short-links-by-user-id.controller.ts`;
 
-## 5# Folder Structure
+## 🗂️ 5# Folder Structure
 The Project folder structure was implemented inspired on bellow imagem from **Clean Architecture** book (by Robert C. Martin).
 - I made a mix of **Clean Arch and DDD (Domain Driven Design)**;
 
@@ -230,7 +219,7 @@ src/
 ```
 
 
-## 6# NPM Scripts added
+## 👨‍💻 6# NPM Scripts added
 
 - `biome:format`: uses biome to code format;
 - `biome:lint`: uses biome to code lint;
@@ -246,7 +235,7 @@ src/
 - `test:cov`: use vitest to generate coverage after test running after a test execution;
 - `test:debug`: use vitest to debug your tests;
 
-## 7# Project Dependencies
+## ℹ️ 7# Project Dependencies
 
 ```SH
 # Create project using NestJS CLI
